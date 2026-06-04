@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: cloud-gateway
+  main: 
+    web-application-type: reactive
+# use reactive web stack (webflux), instead of traditional servlet-based (MVC) stack	
+
+#routing details / routing logic
+  cloud: 
+    gateway: 
+      server: 
+        webflux: 
+          routes: 
+          - id: CUSTOMERMS 
+            uri: http://localhost:4571 
+            predicates: 
+            - Path=/customers/** 
+          - id: STOCKMS 
+            uri: http://localhost:4570 
+            predicates: 
+            - Path=/stocks/**  
+
+#Eureka details
+eureka:
+  client:
+    service-url:
+     defaultZone: http://localhost:4567/eureka/
+
+#Tomcat port number
+server:
+  port: 8888
